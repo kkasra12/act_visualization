@@ -31,18 +31,28 @@ class CacheList:
         self.save()
 
     def append(self, item):
+        """
+        append item to the cache and save the cache
+        """
         self.cache.append(item)
         self.save()
 
     def pop(self, index=0):
+        """
+        pop item from the cache and save the cache
+        """
         self.cache.pop(index)
         self.save()
 
     def save(self):
+        """
+        save the cache to the path
+        """
         with open(self.path, "wb") as f:
             pickle.dump(self.cache, f)
 
     def load(self):
+        """load the cache from the path"""
         if os.path.exists(self.path):
             with open(self.path, "rb") as f:
                 self.cache = pickle.load(f)
@@ -51,6 +61,10 @@ class CacheList:
 
 
 class Scrapper:
+    """
+    Scrapper class to scrap the web page
+    """
+
     def __init__(self, cache_file="cach.pkl", start_url=None, request_delay=0.5):
         """
         Scrapper function to scrap the web page
@@ -78,18 +92,23 @@ class Scrapper:
             self.cache.append(self.first_page_links)
             self.cache.append([])
         self.unvisited_links = self.cache[0]
-        self.unvisited_links.append(None) 
+        self.unvisited_links.append(None)
         # stop criteria: if the unvisited_links has only one None value we will stop scrapping
         self.content = self.cache[1]
-
 
     @property
     def first_page_links(self):
         """
-        scrap the self.start_url and return the links in the first page that matchs the self.matching_regex
+        scrap the self.start_url and return the links in
+          the first page that matchs the self.matching_regex
         :return: list of links in the first page
         """
-        first_page = self.request(self.start_url)
+        # first_page = self.request(self.start_url).find("div", class_="main-content.row")
+        first_page = (
+            self.request(self.start_url)
+            .select("div .main-content .row")[0]
+            .select("div #values")[0]
+        )
         links = first_page.find_all("a", href=re.compile(self.matching_regex))
         return [link["href"] for link in links]
 
@@ -112,7 +131,9 @@ class Scrapper:
             new_content = self.scrap_page(url)
             self.content.append(new_content)
             self.cache.save()
-            print(f"page {url} scrapped, {len(self.unvisited_links)} remaining, elapsed time: {time.time() - self.start_time}")
+            print(
+                f"page {url} scrapped, {len(self.unvisited_links)} remaining, elapsed time: {time.time() - self.start_time}"
+            )
 
     def scrap_page(self, url):
         """
@@ -128,6 +149,3 @@ class Scrapper:
         else:
             paragraphs = main_content.find_all("p")
             return [p.text for p in paragraphs]
-        
-    
-        
