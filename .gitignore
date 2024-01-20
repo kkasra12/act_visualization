@@ -14,4 +14,3 @@ tmp.py
 *.bin*
 glove.6B/
 glove.42B*/
-!glove.6B/glove.6B.50d.txt
