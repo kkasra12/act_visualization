@@ -14,3 +14,4 @@ tmp.py
 *.bin*
 glove.6B/
 glove.42B*/
+!word_embeddings.pkl
