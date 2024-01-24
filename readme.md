@@ -23,3 +23,7 @@ echo "API_KEY = <YOUR_API_KEY>" > config.py
 ```
 2. delete the `classifier.pkl` file or change its name. Also, you can change the file name in the code (you can find it almost end of `main.ipynb`).
 3. run `main.ipynb` again.
+
+
+# view the slides
+to see the rendered slides click [here](https://kkasra12.github.io/act_visualization/main.slides.html#/).
