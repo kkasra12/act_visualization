@@ -4,7 +4,16 @@ from typing import Optional
 
 from openai import OpenAI
 
-from config import API_KEY
+try:
+    from config import API_KEY
+except ImportError:
+    API_KEY = os.environ.get("OPENAI_API_KEY", "")
+    print(
+        "API_KEY is not provided in config.py, using OPENAI_API_KEY environment variable"
+        " instead.\nIf you want to use config.py, please set API_KEY variable in config.py"
+        "\nWhitout API_KEY, you can only use the available classification (already saved in classifier.pkl)"
+        "\nIf you want to make new classification, please set API_KEY in config.py or set OPENAI_API_KEY environment variable"
+    )
 
 
 class CacheDict:

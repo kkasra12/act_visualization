@@ -16,4 +16,6 @@ glove.6B/
 glove.42B*/
 !word_embeddings.pkl
 
+# classification files
 config.py
+!classifier.pkl
