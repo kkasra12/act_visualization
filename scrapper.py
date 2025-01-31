@@ -104,11 +104,16 @@ class Scrapper:
         :return: list of links in the first page
         """
         # first_page = self.request(self.start_url).find("div", class_="main-content.row")
-        first_page = (
-            self.request(self.start_url)
+        try:
+            first_page = (
+            (req:=self.request(self.start_url))
             .select("div .main-content .row")[0]
             .select("div #values")[0]
         )
+        except IndexError:
+            warnings.warn(f"Could not find the first page in {self.start_url}, the request was {req}, the content was {req.content}, retun code was {req.status_code}")
+            return []
+
         links = first_page.find_all("a", href=re.compile(self.matching_regex))
         return [link["href"] for link in links]
 
