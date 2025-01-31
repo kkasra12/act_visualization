@@ -23,5 +23,6 @@ config.py
 
 # rendered files from quarto
 docs/
+docs_docker/
 _freeze/
 /.quarto/

@@ -16,7 +16,6 @@ glove.42B*/
 !word_embeddings.pkl
 
 # classification files
-config.py
 !classifier.pkl
 !cach.pkl
 !backup.pkl

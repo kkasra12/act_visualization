@@ -11,7 +11,7 @@ docker build -t act-visualization .
 ```
 To render the report, run the following command:
 ```bash
-docker run --rm -v $(pwd)/docs:/app/docs act-visualization
+docker run --rm -v $(pwd)/docs_docker:/app/docs_docker act-visualization
 ```
 The rendered report will be available in the `docs` directory.
 ```bash
