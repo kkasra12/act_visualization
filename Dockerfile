@@ -2,11 +2,9 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y wget ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl ca-certificates && rm -rf /var/lib/apt/lists/*
 
-RUN wget -qO quarto.deb "https://quarto.org/download/latest/quarto-linux-amd64.deb" \
-    && dpkg -i quarto.deb \
-    && rm quarto.deb
+RUN curl -fsSL https://quarto.org/download/latest/install.sh | bash
 
 COPY . .
 
