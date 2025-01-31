@@ -3,6 +3,7 @@ import pickle
 import re
 import time
 from bs4 import BeautifulSoup
+import warnings
 
 from regex import B
 import requests
