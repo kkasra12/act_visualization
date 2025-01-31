@@ -1,7 +1,7 @@
 # ACT Visualization
 ## Overview
 
-This project is performing text analysis on the data from the [Artificial Intelligence Act](https://artificialintelligenceact.com/) website. I manged several visualizations using NLP techniques and the findal output is available on [Github Pages](https://github.com/kkasra12/act_visualization)
+This project is performing text analysis on the data from the [Artificial Intelligence Act](https://artificialintelligenceact.com/) website. I manged several visualizations using NLP techniques and the findal output is available on [Github Pages](https://kkasra12.github.io/act_visualization/)
 
 
 ## Dockker
