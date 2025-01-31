@@ -18,6 +18,8 @@ glove.42B*/
 # classification files
 config.py
 !classifier.pkl
+!cach.pkl
+!backup.pkl
 
 # rendered files from quarto
 docs/

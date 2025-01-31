@@ -100,7 +100,14 @@ scrapper.scrap()
 scrapper.unvisited_links
 ```
 ```{python}
-scrapper.content[0]
+if scrapper.content == []:
+    print("The scrapping was not successful. Using the backup data.")
+    with open("backup.pkl", "rb") as f:
+        scrapper.content = pickle.load(f)
+else:
+    scrapper.content[0]
+    with open("backup.pkl", "wb") as f:
+        pickle.dump(scrapper.content, f)
 ```
 
 # Tokenization
