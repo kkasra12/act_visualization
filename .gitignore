@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-.ipynb_checkpoints/
 tmp.py
 
 .vscode/
@@ -21,5 +20,6 @@ config.py
 !classifier.pkl
 
 # rendered files from quarto
-main_files/
-main.html
+docs/
+_freeze/
+/.quarto/
