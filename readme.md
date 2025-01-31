@@ -1,35 +1,84 @@
-# install dependencies
-to install dependencies, run `pip install -r requirements.txt`
+# ACT Visualization
+## Overview
 
-# create slides
-to create slides, run
+This project is performing text analysis on the data from the [Artificial Intelligence Act](https://artificialintelligenceact.com/) website. I manged several visualizations using NLP techniques and the findal output is available on [Github Pages](https://github.com/kkasra12/act_visualization)
+
+
+## Dockker
+To build the docker image, run the following command:
 ```bash
-jupyter-nbconvert --to slides main.ipynb \
- --SlidesExporter.reveal_theme=serif \
- --SlidesExporter.reveal_scroll=True \
- --SlidesExporter.reveal_transition=concave \
- --SlidesExporter.exclude_input=True \
- --SlidesExporter.reveal_number="v.h"
+docker build -t act-visualization .
+```
+To render the report, run the following command:
+```bash
+docker run --rm -v $(pwd)/docs:/app/docs act-visualization
+```
+The rendered report will be available in the `docs` directory.
+```bash
+open docs/index.html
 ```
 
-there should be a file named `main.slides.html`. open it in a browser to view the slides.
+## Installation
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/kkasra12/act_visualization.git
+   cd act_visualization
+   ```
+
+2. **Install Dependencies**
+
+   Ensure you have Python installed. Install the required Python packages using:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Install Quarto**
+
+   Quarto is required to render reports and visualizations. Install it by following the instructions for your operating system:
+
+   - **Windows**: Download and install from [Quarto's website](https://quarto.org/docs/download/)
+   - **macOS**: Use Homebrew:
+     ```bash
+     brew install quarto
+     ```
+   - **Linux**: Use the following commands:
+     ```bash
+     sudo apt install quarto  # Debian/Ubuntu
+     sudo dnf install quarto  # Fedora
+     ```
+
+   Verify the installation:
+
+   ```bash
+   quarto --version
+   ```
+4. **Set Up OpenAI key** (Optional)
+
+   Go to OPENAI website and get an API key. Then copy is to the `config.py` file.
+
+   ```python
+    API_KEY='your_api_key_here'
+    ```
+    > Note: This step is optional. If you don't have an API key, you can still run the project without it and it will use the existing data.
 
 
-# rerun the classification
-if you want to rerun the classification:
-create a Python file named `config.py` and define `API_KEY`.
-```bash
-echo "API_KEY = <YOUR_API_KEY>" > config.py
-```
-2. delete the `classifier.pkl` file or change its name. Also, you can change the file name in the code (you can find it almost end of `main.ipynb`).
-3. run `main.ipynb` again.
 
+## Project Structure
 
-# view the slides
-to see the rendered slides click [here](https://kkasra12.github.io/act_visualization/main.slides.html#/).
+- `classifier.py`: Script for classifying genomic data.
+- `scrapper.py`: Script for scraping relevant data.
+- `node.py`: Contains node definitions used in data processing.
+- `requirements.txt`: Lists the Python dependencies.
+- `index.qmd`: Quarto file containing the main analysis and visualizations.
+- `config.py`: Configuration file for storing API keys and other settings.
+- `images/`: Directory containing images used in the project.
+- `tests/`: Directory containing test scripts.
+- `.github/workflows/`: Contains GitHub Actions workflows for CI/CD.
 
-
-# Test
+## Test
 to run the tests, run
 ```bash
 python -m pytest
