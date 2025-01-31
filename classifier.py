@@ -6,6 +6,7 @@ from openai import OpenAI
 
 try:
     from config import API_KEY
+    os.environ["OPENAI_API_KEY"] = API_KEY
 except ImportError:
     API_KEY = os.environ.get("OPENAI_API_KEY", "")
     print(
@@ -59,7 +60,8 @@ class Classifier:
             "if you think a new class is needed, please write as a new class\n"
             "note that your output should be a single word\n\n"
         )
-        self.client = OpenAI(api_key=API_KEY)
+        # self.client = OpenAI(api_key=API_KEY)
+        self.client = OpenAI()
         if cache_file is not None:
             self.class_dict = CacheDict(cache_file)
         else:

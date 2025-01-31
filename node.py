@@ -86,7 +86,7 @@ class Node:
         if max_depth == -1:
             max_depth = float("inf")
         return "\n".join(
-            ["```mermaid", "graph LR"]
+            ["```{mermaid}", "graph LR"]
             + self._print(min_freq=min_freq, max_depth=max_depth)
             + ["```"]
         )

@@ -1,0 +1,811 @@
+---
+title: "AI Act Analysis"
+author: "Kasra Eskandarizanjani"
+format: 
+  html:
+    page-layout: full
+    toc: true
+    toc_float: true
+    number_sections: true
+bibliography: references.bib
+---
+
+```{python}
+import os
+import pickle
+import re
+import random
+
+import matplotlib.lines as mlines
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from IPython.display import Markdown, display
+from matplotlib import colormaps
+from matplotlib.cm import ScalarMappable
+from matplotlib.colors import Normalize
+import nltk
+from nltk import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from seaborn import objects as so
+from sklearn.decomposition import PCA
+from tqdm.notebook import tqdm
+from wordcloud import WordCloud
+from IPython.display import Javascript
+
+from classifier import Classifier
+from node import Node, node_sum_sent
+from scrapper import Scrapper
+
+sns.set_style("darkgrid")
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+```
+
+# What is the my dataset?
+
+![](https://infotrust.com/wp-content/uploads/2023/06/Blog-Header-Image-Europe_s-AI-Act-Key-Points-to-Know-from-the-Proposed-Regulation.png)
+
+The EU has adopted several amendments on its landmark EU AI Act (first
+of its kind regulatory framework proposed in April 2021) mainly
+concerning the use of Foundation models.
+
+
+# Read the data
+
+# Extract the data from the website
+
+in this part we should consider the following points:
+
+1.  The starting url is <https://artificialintelligenceact.com/>
+2.  There is no need to do DFS or BFS, we can just use the links in the
+    main page to get to the other pages (other pages may have some links
+    together but there is no need to do that).
+3.  There is some other links in the main page that are not related to
+    the main content of the website, we should consider the links with
+    this format
+    `^https://artificialintelligenceact.com/title-[ivx]+/.+$` (that
+    \[ivx\] is a roman number).
+4.  In the target pages we only consider a `<div>` with
+    `class="container main-content"` and we should ignore the other
+    parts of the page.
+
+to keep this document tidy, I put the code in another file and import it
+here. in this code:
+
+-   I use `requests` to get the content of the pages
+-   I use `BeautifulSoup` to parse the html content
+-   I use `re` to find the links with the above format
+-   I use `pickle` to save the data in a file (in case of any intruption
+    in the process, I can continue from where I left)
+-   I use `time` to sleep between requests (to not put too much pressure
+    on the server)
+-   The output is a list of lists, each list contains one page and the
+    text of the page.
+
+```{python}
+from scrapper import Scrapper
+scrapper = Scrapper()
+print(scrapper.unvisited_links)
+```
+
+```{python}
+scrapper.scrap()
+```
+
+```{python}
+scrapper.unvisited_links
+```
+```{python}
+scrapper.content[0]
+```
+
+# Tokenization
+
+Tokenization is the process of breaking a stream of text up into words, phrases, symbols, or other meaningful elements. The tokens become the input for another process, such as parsing or text mining. In this case, we will tokenize the text into sentences.
+
+`<img src="images/tokenize.jpg" style="height:100">`{=html}
+
+```{python}
+sentences = []
+for page in scrapper.content:
+    for p in page:
+        sentences.extend(sent_tokenize(p))
+n=5
+print(f"{len(sentences)} sentences found. These are the {n} random sentences:")
+random.choices(sentences, k=n)
+```
+
+
+```{python}
+number_of_words_in_sentence = [len(word_tokenize(sent)) for sent in sentences]
+values, count = np.unique(number_of_words_in_sentence, return_counts=True)
+sorted_counts = np.argsort(count)[::-1]
+n = 5
+print(f"The most {n} common number of words in sentences are:")
+print("\n".join([f"{values[i]:>2d} words: {count[i]: 3d} sentences" for i in sorted_counts[:n]]))
+```
+
+we have `{python} count[sorted_counts[0]]` sentences with `{python} values[sorted_counts[0]]` words! let\'s see what they are:
+
+
+```{python}
+width = 30
+small_sents = [s for s in sentences if len(word_tokenize(s)) in values[sorted_counts[:1]]]
+print("\n".join(" ".join(small_sents[i:i+width]) for i in range(0, len(small_sents), width)))
+```
+
+Wow! since they are seperated with dot, tokenizer considers them as two
+sentences. let\'s ignore them for now.
+
+```{python}
+sentences = [s for s in sentences if len(word_tokenize(s)) > 2]
+number_of_words_in_sentence = [len(word_tokenize(sent)) for sent in sentences]
+values, count = np.unique(number_of_words_in_sentence, return_counts=True)
+sorted_counts = np.argsort(count)[::-1]
+n = 5
+print(f"The most {n} common number of words in sentences are:")
+print("\n".join([f"{values[i]:>2d} words: {count[i]: 3d} sentences" for i in sorted_counts[:n]]))
+```
+
+```{python}
+fig, ax = plt.subplots(figsize=(10, 5))
+fig = sns.histplot(number_of_words_in_sentence, kde=True, stat="density", bins=100, ax=ax)
+fig.set(
+    xlabel="Number of Words",
+    ylabel="Frequency",
+    title="Histogram of Number of Words in Sentences",
+)
+plt.show()
+```
+
+Also, it is important for us to find the number of words in each page.
+because the content of each page are somehow realted to each other, we
+use same data for training.
+
+```{python}
+number_of_words_in_page = []
+for page in scrapper.content:
+    number_of_words_in_page.append(sum([len(word_tokenize(p)) for p in page]))
+values, count = np.unique(number_of_words_in_page, return_counts=True)
+sorted_counts = np.argsort(count)[::-1]
+n = 5
+print(f"The most {n} common number of words in pages are:")
+print("\n".join([f"{values[i]:>2d} words: {count[i]: 3d} pages" for i in sorted_counts[:n]]))
+```
+
+```{python}
+plt.figure(figsize=(10, 5))
+fig = sns.histplot(number_of_words_in_page, kde=True, stat="density", bins=100)
+fig.set(
+    xlabel="Number of Words",
+    ylabel="Frequency",
+    title="Histogram of Number of Words in Pages",
+)
+plt.show()
+```
+## word count
+
+in this part we should consider the following points:
+
+1.  we should remove the punctuations
+2.  we should remove the stop words
+3.  we should remove the numbers
+4.  we should remove the words with length less than 3
+
+```{python}
+# to see the stop words
+", ".join(stopwords.words("english"))
+```
+
+```{python}
+def validate_word(word):
+    word = word.lower()
+    if word.isalpha() and word not in stopwords.words("english"):
+        return word
+    return None
+
+greek_to_english = [
+    "i",
+    "ii",
+    "iii",
+    "iv",
+    "v",
+    "vi",
+    "vii",
+    "viii",
+    "ix",
+    "x",
+    "xi",
+    "xii",
+    "xiii",
+]
+```
+
+```{python}
+all_words = []
+last_article = 0
+chapter_counter = []
+for page in scrapper.content:
+    article_number = (
+        greek_to_english.index(
+            re.search(r"Home\s.\sTitle(.+?)\s", page[0]).group(1).strip().lower()  # type: ignore
+        )
+        + 1
+    )
+    if article_number != last_article:
+        # all_words.append(f'zArticle_{article_number}')
+        print(f"Article {article_number} has {len(all_words)} words.")
+        chapter_counter.append(len(all_words))
+        last_article = article_number
+    for paragraph in page:
+        for word in word_tokenize(paragraph):
+            word = validate_word(word)
+            if word:
+                all_words.append(word)
+
+values, count = np.unique(all_words, return_counts=True)
+```
+
+```{python}
+words_count = list(zip(*np.unique(all_words, return_counts=True)))
+words_count.sort(key=lambda x: x[1], reverse=True)
+words_count[:10]
+```
+
+```{python}
+limit = 10
+fig = sns.barplot(
+    y=[w[0] for w in words_count[:limit]], x=[w[1] for w in words_count[:limit]]
+)
+fig.set(xlabel="Words", ylabel="Frequency", title=f"Top {limit} Words")
+plt.show()
+```
+
+as we can see, there is a word \"system\" and \"systems\" in the list.
+we should consider them as one word. we can use `stemming` or
+`lemmatization` to do that. I have tried many different algorithms, but
+finally I find the `WordNetLemmatizer` the most accurate one.
+
+### lemmatization
+
+```{python}
+wnl = WordNetLemmatizer()
+stemmed_words = [wnl.lemmatize(word) for word in all_words]
+values, count = np.unique(stemmed_words, return_counts=True)
+sorted_counts = np.argsort(count)[::-1]
+n = 5
+print(f"The most {n} common stemmed words are:")
+print("\n".join([f"{values[i]:>10s}: {count[i]: 3d} times" for i in sorted_counts[:n]]))
+```
+
+
+```{python}
+stemmed_words_count_ = list(zip(*np.unique(stemmed_words, return_counts=True)))
+stemmed_words_count_.sort(key=lambda x: x[1], reverse=True)
+stemmed_words_count = pd.DataFrame(stemmed_words_count_, columns=["word", "count"])
+stemmed_words_count
+```
+
+```{python}
+fig = sns.barplot(
+    y=stemmed_words_count.iloc[:limit, 0], x=stemmed_words_count.iloc[:limit, 1]
+)
+fig.set(xlabel="Words", ylabel="Frequency", title=f"Top {limit} Words")
+plt.show()
+```
+
+## Word Cloud
+
+```{python}
+wc = WordCloud(background_color="white", max_words=1000, width=800, height=400)
+wc.generate_from_frequencies(stemmed_words_count.set_index("word").to_dict()["count"])
+plt.figure(figsize=(12, 6))
+plt.imshow(wc, interpolation="bilinear")
+plt.axis("off")
+plt.show()
+```
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+::: {.hidden}
+-   TODO1: I should try different lemmatisers and stemmers to see which
+    one is better. right now we have words such \"titl\", \"chapt\",
+    \"dat\" which sounds not real words.
+-   TODO2: create a word cloud for each page and see if there is any
+    pattern in the words.
+-   TODO3: create words density for each page and see if there is any
+    pattern in the words.
+-   TODO4: perform tf-idf on the words and see if there is any pattern
+    in the words. (we can consider each page as a document)
+-   TODO5: use a pretrained word2vec model to plot the words in a 2D
+    space.
+-   TODO6: create new dataset for text-completion and QA models.
+-   TODO:density of the some words in the document
+:::
+
+# Word embedding and PCA
+
+![](images/word_embedding.png)
+
+## GloVe Word2Vec Embedding
+
+The Global Vectors for word representation (GloVe), introduced by
+Jeffrey Pennington et al @pennington-etal-2014-glove
+```{python}
+file_path = "glove.6B/glove.6B.50d.txt"
+!head $file_path
+```
+
+```{python}
+pickle_file_path = "word_embeddings.pkl"
+if os.path.exists(pickle_file_path):
+    print("Loading word embeddings from pickle file")
+    with open(pickle_file_path, "rb") as f:
+        word_embeddings = pickle.load(f)
+else:
+    print("Loading word embeddings from txt file")
+    word_embeddings = {}
+    limit = -1
+    with open(file_path, "r") as f:
+        for i, line in enumerate(f):
+            if i == limit:
+                break
+            values = line.split()
+            word = values[0]
+            vector = np.asarray(values[1:], dtype="float32")
+            word_embeddings[word] = vector
+    print("Saving word embeddings to pickle file")
+    with open("word_embeddings.pkl", "wb") as f:
+        pickle.dump(word_embeddings, f)
+
+print(f"{len(word_embeddings)} words found in the embeddings.")
+```
+
+```{python}
+top = stemmed_words_count.iloc[:15].copy()
+top_embeddings_ = [word_embeddings[w] for w in top.word]
+top_embeddings: np.ndarray = np.array(top_embeddings_)
+print(f"Top {len(top)} words embeddings shape: {top_embeddings.shape}")
+```
+
+## PCA
+
+PCA is a function that mapps a vector to another vector with less
+dimensions.
+
+$$
+\begin{align*}
+f:& \mathbb{R}^n \rightarrow \mathbb{R}^m, m < n \\
+& x \rightarrow Mx
+\end{align*}
+$$
+
+```{python}
+pca = PCA(n_components=2)
+top_embeddings_pca = pca.fit_transform(top_embeddings)
+top["x"] = top_embeddings_pca[:, 0]
+top["y"] = top_embeddings_pca[:, 1]
+top
+```
+
+```{python}
+plt.figure(figsize=(9, 9))
+ax = sns.scatterplot(data=top, x="x", y="y", size="count", sizes=(60, 400), legend=True)
+ax.set_title("Top 10 Words Embeddings")
+ax.set_xlabel("X")
+ax.set_ylabel("Y", rotation=0, labelpad=10)
+
+ax.vlines(0, *ax.get_xlim(), colors="gray", alpha=0.6, linestyles="dashed")
+ax.hlines(0, *ax.get_ylim(), colors="gray", alpha=0.6, linestyles="dashed")
+for i, row in top.iterrows():
+    ax.text(row.x, row.y, row.word, fontsize=12)
+
+ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
+plt.show()
+```
+
+```{python}
+top_norm = top.copy()
+max_font_size = 50
+min_font_size = 15
+min_color = 0.5
+max_color = 1
+c = top_norm["count"]
+top_norm["size"] = (c - c.min()) / (c.max() - c.min()) * (
+    max_font_size - min_font_size
+) + min_font_size
+# top_norm.drop(columns=['count'], inplace=True)
+top_norm
+```
+
+```{python}
+fig, ax = plt.subplots(figsize=(12, 12))
+
+# plt.plot(top_norm.x, top_norm.y, markersize=1, marker=".", linestyle="", cmap=cmap, label = top_norm.word)
+
+# sns.scatterplot(data=top_norm, x='x', y='y', hue='color', sizes=(1,2))
+color_norm = Normalize(vmin=top_norm["count"].min(), vmax=top_norm["count"].max())
+cmap = colormaps["viridis"]
+
+for i, row in top_norm.iterrows():
+    color = cmap(color_norm(row["count"]))
+    ax.plot(row.x, row.y, markersize=1, marker=".", linestyle="", color="white")
+    ax.text(
+        row.x,
+        row.y,
+        row.word,
+        fontsize=row["size"],
+        color=color,
+        horizontalalignment="center",
+        verticalalignment="center",
+        alpha=0.8,
+        fontweight="bold",
+    )
+
+
+xmin, xmax, ymin, ymax = ax.axis("equal")
+ax.vlines(0, xmin * 2, xmax * 2, colors="gray", alpha=0.6, linestyles="dashed")
+ax.hlines(0, ymin * 2, ymax * 2, colors="gray", alpha=0.6, linestyles="dashed")
+ax.set_xlim(xmin, xmax)
+ax.set_ylim(ymin, ymax)
+ax.set_title("Top 10 Words Embeddings")
+ax.set_xlabel("X")
+ax.set_ylabel("Y", rotation=0, labelpad=10)
+fig.colorbar(
+    ScalarMappable(norm=color_norm, cmap=cmap),
+    ax=ax,
+    orientation="vertical",
+    label="frequency",
+)
+plt.show()
+```
+
+# Top Words density
+
+```{python}
+def get_word_density(text: list[str], word: str, window_size: int, overlap: int):
+    starting_points = list(range(0, len(text), window_size - overlap))
+    return pd.Series(
+        [text[s : s + window_size].count(word) for s in starting_points],
+        index=starting_points,
+        name=word,
+    )
+
+
+get_word_density(
+    "lorem amet ipsum dolor sit amet consectetur adipisc amet amet".split(),
+    "amet",
+    4,
+    2,
+)
+```
+
+
+```{python}
+selected_words = ["system", "ai", "regulation", "authority"]
+
+fig, ax = plt.subplots(figsize=(11, 6))
+top_words_wnidow_freq = pd.DataFrame(
+    get_word_density(stemmed_words, w, window_size=500, overlap=300)
+    for w in selected_words
+).T
+text_locs = pd.DataFrame(
+    [top_words_wnidow_freq.max(axis=0), top_words_wnidow_freq.idxmax(axis=0)],
+    index=["freq", "index"],
+).T.reset_index(names=["word"])
+
+max_marker = "^"
+max_color = "red"
+max_pointsize = 15
+
+sns.lineplot(data=top_words_wnidow_freq, dashes=False, ax=ax)
+(
+    so.Plot(text_locs, x="index", y="freq", text="word")
+    .add(so.Text(valign="bottom"))
+    .add(so.Dot(marker=max_marker, color=max_color, pointsize=max_pointsize))
+    .on(ax)
+    .plot()
+)
+
+for i, chapter_number in enumerate(chapter_counter[1:], start=1):
+    ax.axvline(chapter_number, color="gray", alpha=0.6, linestyle="dashed")
+    ax.text(
+        chapter_number,
+        ax.get_ylim()[1],
+        f"Chapter {i}",
+        rotation=90,
+        color="gray",
+        ha="right",
+        va="bottom",
+    )
+
+ax.set_title("Top 5 Words Density")
+ax.set_xlabel("Word Index")
+ax.set_ylabel("Frequency")
+
+ax.legend(
+    handles=[
+        art for art in ax.lines if not art.get_label().startswith("_")
+    ]  # instead of this list we can simply use ax.lines, but it will also include the legend for the vertical lines and will raise an deprecation warning
+    + [
+        mlines.Line2D(
+            [],
+            [],
+            color=max_color,
+            marker=max_marker,
+            markersize=max_pointsize,
+            label="Max Window",
+        )
+    ]
+)
+ax.grid(True, axis="y")
+plt.show()
+```
+
+# Count 2 or 3 seccessive words
+
+```{python}
+def find_n_grams(text: list[str], n: int):
+    most_freq = pd.Series(
+        [tuple(text[i : i + n]) for i in range(len(text) - n + 1)]
+    ).value_counts()
+    return most_freq
+
+
+frequent_bigrams = find_n_grams(stemmed_words, 2)
+frequent_bigrams = (
+    frequent_bigrams.to_frame().reset_index().rename(columns={"index": "bigram"})
+)
+frequent_bigrams["bigram"] = frequent_bigrams["bigram"].str.join("_")
+frequesnt_bigrams_dict = frequent_bigrams.set_index("bigram").to_dict()["count"]
+print(f"The most common bigrams are:")
+for bigram in sorted(frequesnt_bigrams_dict, key=frequesnt_bigrams_dict.get, reverse=True)[:5]:
+    print(f"{bigram:>20}: {frequesnt_bigrams_dict[bigram]:<3} times")
+```
+
+```{python}
+wc = WordCloud(background_color="white", max_words=1000, width=800, height=400)
+wc.generate_from_frequencies(frequent_bigrams.set_index("bigram").to_dict()["count"])
+plt.figure(figsize=(12, 6))
+plt.imshow(wc, interpolation="bilinear")
+plt.axis("off")
+plt.show()
+```
+
+## Impoertant Bigrams
+
+::: {.callout-note}
+lets filter some of uninformative words...
+:::
+
+```{python}
+filtered_words = {
+    "chapter",
+    "title",
+    "home",
+    "iii"}
+
+frequent_bigrams = find_n_grams([w for w in stemmed_words if w not in filtered_words], 2)
+frequent_bigrams = (
+    frequent_bigrams.to_frame().reset_index().rename(columns={"index": "bigram"})
+)
+frequent_bigrams["bigram"] = frequent_bigrams["bigram"].str.join("_")
+
+wc = WordCloud(background_color="white", max_words=1000, width=800, height=400)
+wc.generate_from_frequencies(frequent_bigrams.set_index("bigram").to_dict()["count"])
+plt.figure(figsize=(12, 6))
+plt.imshow(wc, interpolation="bilinear")
+plt.axis("off")
+plt.show()
+```
+
+## Count 3 seccessive words
+
+```{python}
+frequent_threegrams = find_n_grams([w for w in stemmed_words if w not in filtered_words], 3)
+frequent_threegrams = (
+    frequent_threegrams.to_frame().reset_index().rename(columns={"index": "threegram"})
+)
+frequent_threegrams["threegram"] = frequent_threegrams["threegram"].str.join("_")
+frequent_threegrams.set_index("threegram").to_dict()["count"]
+
+wc = WordCloud(background_color="white", max_words=1000, width=800, height=400)
+wc.generate_from_frequencies(
+    frequent_threegrams.set_index("threegram").to_dict()["count"]
+)
+plt.figure(figsize=(12, 6))
+plt.imshow(wc, interpolation="bilinear")
+plt.axis("off")
+plt.show()
+```
+
+# Sentence Tree
+
+for instance, we have the following sentences:
+
+-   I like to eat apple.
+-   I like to eat banana.
+-   I like to make pizza.
+-   I like winter.
+-   I am a human.
+
+we can create a tree like this:
+
+```{mermaid}
+graph LR
+A[I] ==4==> like[like]
+A[I] --> E[am]
+like --3--> C[to]
+C --2--> D[eat]
+D --> F[apple]
+D --> G[banana]
+C --> H[make]
+H --> I[pizza]
+like --> J[winter]
+E --> K[a]
+K --> L[human]
+```
+
+```{python}
+start_node = Node("start")
+sentences_tmp = (
+    "I like to eat apple."
+    "I like to eat banana."
+    "I like to make pizza."
+    "I like winter."
+    "I am a human."
+    "my name is kasra".split(".")
+)
+for sent in sentences_tmp:
+    node_sum_sent(sent, start_node)
+display(Markdown(start_node.print()))
+```
+
+as we can see the words \"my\" and \"is\" are not in the tree. because
+they are considered as stop words.
+Since we cannot see the whole tree, we can check for several sub-trees.
+
+**for instance, we can check for the edges which have more than 20 repetitions**
+
+```{python}
+start_node = Node("START")
+for _sent in sentences:
+    for sent in sent_tokenize(_sent):
+        node_sum_sent(sent, start_node)
+
+display(Markdown(start_node.print(min_freq=20)))
+```
+
+**now lets omit some of unuseful words and show the edges with more than 5 repetitions**
+
+```{python}
+abandoned_words = {
+    "home",
+    "title",
+    "article",
+    "chapter",
+    "i",
+    "ii",
+    "iii",
+    "iv",
+    "v",
+    "vi",
+    "vii",
+    "viii",
+    "ix",
+    "x",
+    "xi",
+    "xii",
+    "shall",
+    "paragraph",
+}
+
+start_node = Node("START")
+for _sent in sentences:
+    for sent in sent_tokenize(_sent):
+        node_sum_sent(sent, start_node, abandoned_words)
+
+t = start_node.print(min_freq=5)
+display(Markdown(t))
+```
+
+**Sentence start with \"system\"**
+
+```{python}
+display(Markdown((start_node["system"].print(min_freq=3))))
+```
+
+**Sentence start with \"provider\"**
+
+```{python}
+display(Markdown((start_node["provider"].print(min_freq=3))))
+```
+
+**Sentence start with \"documentation\"**
+
+```{python}
+display(Markdown((start_node["documentation"].print(min_freq=2))))
+```
+
+**Sentence start with \"adopting\"**
+
+```{python}
+display(Markdown((start_node["adopting"].print(min_freq=2))))
+```
+# Sentence Classification
+
+
+In this part we want to classify the sentences based on their content.
+
+```{mermaid}
+graph TB
+S((Start)) --> A[Grab sentence]
+A --> B[Classify with ChatGpt\n with list of \navailable classes]
+B --> C{If new class} --> |Yes| D[Create new class]
+C --> |No| E[Add sentence to the class]
+D --> E
+E --> A
+```
+
+```{python}
+
+classifier = Classifier(
+    initil_classes=["user info", "provider info", "warning", "title", "definition"],
+    cache_file="classifier.pkl",
+)
+classifier.text_classify(sentences, progress_bar=tqdm)
+```
+
+```{python}
+classifier.classes
+```
+
+```{python}
+x, y = zip(
+    *sorted(
+        zip(*np.unique(list(classifier.class_dict.values()), return_counts=True)),
+        key=lambda x: x[1],
+        reverse=True,
+    )
+)
+plt.figure(figsize=(12, 6))
+sns.barplot(x=x, y=y).set(
+    title="Number of Sentences in Each Class",
+    xlabel="Class",
+    ylabel="Number of Sentences",
+)
+plt.show()
+```
+
+```{python}
+class_density = pd.DataFrame(
+    [
+        get_word_density(list(classifier.class_dict.values()), cls, 50, 5)
+        for cls in classifier.classes
+    ]
+).T
+plt.figure(figsize=(12, 6))
+sns.lineplot(data=class_density).set(title="Class Density", xlabel="Sentence Index", ylabel="Windowed Frequency")
+plt.show()
+```
+
+# Future Work
+
+1. [x] Use ChatGPT-4 for classification
+2. [ ] Word count for each class
+3. [ ] perform a *Named entity recognition* (NER) on the dataset
+4. [ ] Use tf/idf to find the most important words in each class
+
+
+### References
+
+::: {#refs}
+:::

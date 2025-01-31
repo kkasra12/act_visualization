@@ -19,3 +19,7 @@ glove.42B*/
 # classification files
 config.py
 !classifier.pkl
+
+# rendered files from quarto
+main_files/
+main.html
