@@ -26,6 +26,9 @@ jobs:
       - run: pip install jupyter
       - run: pip install -r requirements.txt
 
+      - name: install nltk data
+        run: python -c "import nltk; nltk.download('stopwords'); nltk.download('punkt'); nltk.download('wordnet')"
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
