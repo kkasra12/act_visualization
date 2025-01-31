@@ -13,3 +13,5 @@ seaborn==0.13.1
 tqdm==4.66.1
 wordcloud==1.9.3
 jupyter==1.1.1
+pytest==8.3.4
+pytest-mock==3.14.0

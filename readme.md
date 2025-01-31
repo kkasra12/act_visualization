@@ -27,3 +27,11 @@ echo "API_KEY = <YOUR_API_KEY>" > config.py
 
 # view the slides
 to see the rendered slides click [here](https://kkasra12.github.io/act_visualization/main.slides.html#/).
+
+
+# Test
+to run the tests, run
+```bash
+python -m pytest
+```
+
