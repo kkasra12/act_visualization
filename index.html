@@ -231,7 +231,7 @@ window.Quarto = {
 </header>
 
 
-<div id="9cbcabe3" class="cell" data-execution_count="1">
+<div id="45947fde" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -305,7 +305,7 @@ window.Quarto = {
 <li>I use <code>time</code> to sleep between requests (to not put too much pressure on the server)</li>
 <li>The output is a list of lists, each list contains one page and the text of the page.</li>
 </ul>
-<div id="70064e48" class="cell" data-execution_count="2">
+<div id="cfda097b" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scrapper <span class="im">import</span> Scrapper</span>
@@ -316,13 +316,13 @@ window.Quarto = {
 <pre><code>[None, None]</code></pre>
 </div>
 </div>
-<div id="817cd897" class="cell" data-execution_count="3">
+<div id="f27efb25" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>scrapper.scrap()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="1bf58c49" class="cell" data-execution_count="4">
+<div id="8870fa1a" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>scrapper.unvisited_links</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -331,7 +331,7 @@ window.Quarto = {
 <pre><code>[None, None]</code></pre>
 </div>
 </div>
-<div id="2dd72cfb" class="cell" data-execution_count="5">
+<div id="5c7a7628" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> scrapper.content <span class="op">==</span> []:</span>
@@ -349,7 +349,7 @@ window.Quarto = {
 <h1>Tokenization</h1>
 <p>Tokenization is the process of breaking a stream of text up into words, phrases, symbols, or other meaningful elements. The tokens become the input for another process, such as parsing or text mining. In this case, we will tokenize the text into sentences.</p>
 <p><img src="images/tokenize.jpg" style="height:100"></p>
-<div id="8f11ade4" class="cell" data-execution_count="6">
+<div id="687d6233" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> []</span>
@@ -364,14 +364,14 @@ window.Quarto = {
 <pre><code>648 sentences found. These are the 5 random sentences:</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>['(c) draw-up and keep the technical documentation of the high-risk AI system referred to in Article 11; [This clause has been provisionally agreed subject to final check by the EP.]',
- '2.',
- 'When adopting delegated acts pursuant to paragraphs 1 and 2 concerning Artificial Intelligence systems which are safety components in the meaning of Regulation (EU) YYY/XX [on Artificial Intelligence], the requirements set out in Title III, Chapter 2 of that Regulation shall be taken into account.”',
- '(b) Regulation\xa0(EU) No 167/2013;',
- 'b) the importers;']</code></pre>
+<pre><code>['2.',
+ '(d)\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 the decisions and other documents issued by the notified bodies where applicable;',
+ '[The Council amended this clause, and it has been provisionally agreed on subject to final checks by the EP.]',
+ 'It shall contain, at a minimum, the elements set out in Annex IV.',
+ '(19) ‘notifying authority’ means the national authority responsible for setting up and carrying out the necessary procedures for the assessment, designation and notification of conformity assessment bodies and for their monitoring;']</code></pre>
 </div>
 </div>
-<div id="661f2271" class="cell" data-execution_count="7">
+<div id="45427263" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>number_of_words_in_sentence <span class="op">=</span> [<span class="bu">len</span>(word_tokenize(sent)) <span class="cf">for</span> sent <span class="kw">in</span> sentences]</span>
@@ -391,7 +391,7 @@ window.Quarto = {
 </div>
 </div>
 <p>we have 90 sentences with 2 words! let's see what they are:</p>
-<div id="4ba787c1" class="cell" data-execution_count="8">
+<div id="b705d463" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="dv">30</span></span>
@@ -405,7 +405,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Wow! since they are seperated with dot, tokenizer considers them as two sentences. let's ignore them for now.</p>
-<div id="b4e04bca" class="cell" data-execution_count="9">
+<div id="f6ac2e2d" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [s <span class="cf">for</span> s <span class="kw">in</span> sentences <span class="cf">if</span> <span class="bu">len</span>(word_tokenize(s)) <span class="op">&gt;</span> <span class="dv">2</span>]</span>
@@ -425,7 +425,7 @@ window.Quarto = {
 17 words:  18 sentences</code></pre>
 </div>
 </div>
-<div id="ca768610" class="cell" data-execution_count="10">
+<div id="0c839fcc" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
@@ -446,7 +446,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Also, it is important for us to find the number of words in each page. because the content of each page are somehow realted to each other, we use same data for training.</p>
-<div id="dd318d18" class="cell" data-execution_count="11">
+<div id="4b993c54" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>number_of_words_in_page <span class="op">=</span> []</span>
@@ -467,7 +467,7 @@ window.Quarto = {
 92 words:   2 pages</code></pre>
 </div>
 </div>
-<div id="75c3c84a" class="cell" data-execution_count="12">
+<div id="91cc55e0" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
@@ -496,7 +496,7 @@ window.Quarto = {
 <li>we should remove the numbers</li>
 <li>we should remove the words with length less than 3</li>
 </ol>
-<div id="e78f720c" class="cell" data-execution_count="13">
+<div id="5ede8539" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to see the stop words</span></span>
@@ -506,7 +506,7 @@ window.Quarto = {
 <pre><code>"i, me, my, myself, we, our, ours, ourselves, you, you're, you've, you'll, you'd, your, yours, yourself, yourselves, he, him, his, himself, she, she's, her, hers, herself, it, it's, its, itself, they, them, their, theirs, themselves, what, which, who, whom, this, that, that'll, these, those, am, is, are, was, were, be, been, being, have, has, had, having, do, does, did, doing, a, an, the, and, but, if, or, because, as, until, while, of, at, by, for, with, about, against, between, into, through, during, before, after, above, below, to, from, up, down, in, out, on, off, over, under, again, further, then, once, here, there, when, where, why, how, all, any, both, each, few, more, most, other, some, such, no, nor, not, only, own, same, so, than, too, very, s, t, can, will, just, don, don't, should, should've, now, d, ll, m, o, re, ve, y, ain, aren, aren't, couldn, couldn't, didn, didn't, doesn, doesn't, hadn, hadn't, hasn, hasn't, haven, haven't, isn, isn't, ma, mightn, mightn't, mustn, mustn't, needn, needn't, shan, shan't, shouldn, shouldn't, wasn, wasn't, weren, weren't, won, won't, wouldn, wouldn't"</code></pre>
 </div>
 </div>
-<div id="5ab8c7ef" class="cell" data-execution_count="14">
+<div id="1bc56f53" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> validate_word(word):</span>
@@ -532,7 +532,7 @@ window.Quarto = {
 <span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="02e2bc53" class="cell" data-execution_count="15">
+<div id="d81c29ea" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>all_words <span class="op">=</span> []</span>
@@ -573,7 +573,7 @@ Article 11 has 7046 words.
 Article 12 has 7054 words.</code></pre>
 </div>
 </div>
-<div id="8ac91fd0" class="cell" data-execution_count="16">
+<div id="7bbc39c9" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>words_count <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(<span class="op">*</span>np.unique(all_words, return_counts<span class="op">=</span><span class="va">True</span>)))</span>
@@ -593,7 +593,7 @@ Article 12 has 7054 words.</code></pre>
  ('home', 85)]</code></pre>
 </div>
 </div>
-<div id="4ad4c52f" class="cell" data-execution_count="17">
+<div id="82c5ee08" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>limit <span class="op">=</span> <span class="dv">10</span></span>
@@ -614,7 +614,7 @@ Article 12 has 7054 words.</code></pre>
 <p>as we can see, there is a word "system" and "systems" in the list. we should consider them as one word. we can use <code>stemming</code> or <code>lemmatization</code> to do that. I have tried many different algorithms, but finally I find the <code>WordNetLemmatizer</code> the most accurate one.</p>
 <section id="lemmatization" class="level3">
 <h3 class="anchored" data-anchor-id="lemmatization">lemmatization</h3>
-<div id="17d8a97b" class="cell" data-execution_count="18">
+<div id="65f1d849" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>wnl <span class="op">=</span> WordNetLemmatizer()</span>
@@ -634,7 +634,7 @@ Article 12 has 7054 words.</code></pre>
      title:  161 times</code></pre>
 </div>
 </div>
-<div id="b8690803" class="cell" data-execution_count="19">
+<div id="2647e7e2" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>stemmed_words_count_ <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(<span class="op">*</span>np.unique(stemmed_words, return_counts<span class="op">=</span><span class="va">True</span>)))</span>
@@ -717,7 +717,7 @@ Article 12 has 7054 words.</code></pre>
 </div>
 </div>
 </div>
-<div id="992fd078" class="cell" data-execution_count="20">
+<div id="4f6db067" class="cell" data-execution_count="20">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> sns.barplot(</span>
@@ -738,7 +738,7 @@ Article 12 has 7054 words.</code></pre>
 </section>
 <section id="word-cloud" class="level2">
 <h2 class="anchored" data-anchor-id="word-cloud">Word Cloud</h2>
-<div id="5b37cf7e" class="cell" data-execution_count="21">
+<div id="6de2899e" class="cell" data-execution_count="21">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(background_color<span class="op">=</span><span class="st">"white"</span>, max_words<span class="op">=</span><span class="dv">1000</span>, width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">400</span>)</span>
@@ -780,7 +780,7 @@ Article 12 has 7054 words.</code></pre>
 <section id="glove-word2vec-embedding" class="level2">
 <h2 class="anchored" data-anchor-id="glove-word2vec-embedding">GloVe Word2Vec Embedding</h2>
 <p>The Global Vectors for word representation (GloVe), introduced by Jeffrey Pennington et al <span class="citation" data-cites="pennington-etal-2014-glove">Pennington, Socher, and Manning (<a href="#ref-pennington-etal-2014-glove" role="doc-biblioref">2014</a>)</span></p>
-<div id="79372389" class="cell" data-execution_count="22">
+<div id="0706ce45" class="cell" data-execution_count="22">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">"glove.6B/glove.6B.50d.txt"</span></span>
@@ -790,7 +790,7 @@ Article 12 has 7054 words.</code></pre>
 <pre><code>head: cannot open 'glove.6B/glove.6B.50d.txt' for reading: No such file or directory</code></pre>
 </div>
 </div>
-<div id="bcc2d588" class="cell" data-execution_count="23">
+<div id="caaeaf54" class="cell" data-execution_count="23">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pickle_file_path <span class="op">=</span> <span class="st">"word_embeddings.pkl"</span></span>
@@ -821,7 +821,7 @@ Article 12 has 7054 words.</code></pre>
 400000 words found in the embeddings.</code></pre>
 </div>
 </div>
-<div id="4c56aa9a" class="cell" data-execution_count="24">
+<div id="299b0be9" class="cell" data-execution_count="24">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>top <span class="op">=</span> stemmed_words_count.iloc[:<span class="dv">15</span>].copy()</span>
@@ -843,7 +843,7 @@ f:&amp; \mathbb{R}^n \rightarrow \mathbb{R}^m, m &lt; n \\
 &amp; x \rightarrow Mx
 \end{align*}
 \]</span></p>
-<div id="da089729" class="cell" data-execution_count="25">
+<div id="9bf6bfc9" class="cell" data-execution_count="25">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
@@ -978,7 +978,7 @@ f:&amp; \mathbb{R}^n \rightarrow \mathbb{R}^m, m &lt; n \\
 </div>
 </div>
 </div>
-<div id="845525b7" class="cell" data-execution_count="26">
+<div id="0d678a92" class="cell" data-execution_count="26">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">9</span>))</span>
@@ -1003,7 +1003,7 @@ f:&amp; \mathbb{R}^n \rightarrow \mathbb{R}^m, m &lt; n \\
 </div>
 </div>
 </div>
-<div id="bc3492f8" class="cell" data-execution_count="27">
+<div id="30ac0547" class="cell" data-execution_count="27">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>top_norm <span class="op">=</span> top.copy()</span>
@@ -1160,7 +1160,7 @@ f:&amp; \mathbb{R}^n \rightarrow \mathbb{R}^m, m &lt; n \\
 </div>
 </div>
 </div>
-<div id="3227ba46" class="cell" data-execution_count="28">
+<div id="a0ced09f" class="cell" data-execution_count="28">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">12</span>))</span>
@@ -1215,7 +1215,7 @@ f:&amp; \mathbb{R}^n \rightarrow \mathbb{R}^m, m &lt; n \\
 </section>
 <section id="top-words-density" class="level1">
 <h1>Top Words density</h1>
-<div id="ad8ba176" class="cell" data-execution_count="29">
+<div id="0e0b9aa3" class="cell" data-execution_count="29">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_word_density(text: <span class="bu">list</span>[<span class="bu">str</span>], word: <span class="bu">str</span>, window_size: <span class="bu">int</span>, overlap: <span class="bu">int</span>):</span>
@@ -1243,7 +1243,7 @@ f:&amp; \mathbb{R}^n \rightarrow \mathbb{R}^m, m &lt; n \\
 Name: amet, dtype: int64</code></pre>
 </div>
 </div>
-<div id="077e8195" class="cell" data-execution_count="30">
+<div id="630ec3c3" class="cell" data-execution_count="30">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>selected_words <span class="op">=</span> [<span class="st">"system"</span>, <span class="st">"ai"</span>, <span class="st">"regulation"</span>, <span class="st">"authority"</span>]</span>
@@ -1326,7 +1326,7 @@ Name: amet, dtype: int64</code></pre>
 </section>
 <section id="count-2-or-3-seccessive-words" class="level1">
 <h1>Count 2 or 3 seccessive words</h1>
-<div id="789b651b" class="cell" data-execution_count="31">
+<div id="c1c69342" class="cell" data-execution_count="31">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_n_grams(text: <span class="bu">list</span>[<span class="bu">str</span>], n: <span class="bu">int</span>):</span>
@@ -1355,7 +1355,7 @@ Name: amet, dtype: int64</code></pre>
      chapter_article: 58  times</code></pre>
 </div>
 </div>
-<div id="35778afe" class="cell" data-execution_count="32">
+<div id="5bd0a9ad" class="cell" data-execution_count="32">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(background_color<span class="op">=</span><span class="st">"white"</span>, max_words<span class="op">=</span><span class="dv">1000</span>, width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">400</span>)</span>
@@ -1388,7 +1388,7 @@ Note
 <p>lets filter some of uninformative words…</p>
 </div>
 </div>
-<div id="64dd4adf" class="cell" data-execution_count="33">
+<div id="f155e623" class="cell" data-execution_count="33">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>filtered_words <span class="op">=</span> {</span>
@@ -1421,7 +1421,7 @@ Note
 </section>
 <section id="count-3-seccessive-words" class="level2">
 <h2 class="anchored" data-anchor-id="count-3-seccessive-words">Count 3 seccessive words</h2>
-<div id="07d19a78" class="cell" data-execution_count="34">
+<div id="aec04bb8" class="cell" data-execution_count="34">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>frequent_threegrams <span class="op">=</span> find_n_grams([w <span class="cf">for</span> w <span class="kw">in</span> stemmed_words <span class="cf">if</span> w <span class="kw">not</span> <span class="kw">in</span> filtered_words], <span class="dv">3</span>)</span>
@@ -1499,7 +1499,7 @@ K --&gt; L[human]
 </div>
 </div>
 </div>
-<div id="52b8ffb1" class="cell" data-execution_count="35">
+<div id="cccd5b32" class="cell" data-execution_count="35">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>start_node <span class="op">=</span> Node(<span class="st">"start"</span>)</span>
@@ -1556,7 +1556,7 @@ N13[name] --1--&gt; N14[kasra]
 </div>
 <p>as we can see the words "my" and "is" are not in the tree. because they are considered as stop words. Since we cannot see the whole tree, we can check for several sub-trees.</p>
 <p><strong>for instance, we can check for the edges which have more than 20 repetitions</strong></p>
-<div id="23cd1a7c" class="cell" data-execution_count="36">
+<div id="d0672178" class="cell" data-execution_count="36">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>start_node <span class="op">=</span> Node(<span class="st">"START"</span>)</span>
@@ -1608,7 +1608,7 @@ N15[START] --31--&gt; N106[system]
 </div>
 </div>
 <p><strong>now lets omit some of unuseful words and show the edges with more than 5 repetitions</strong></p>
-<div id="44f55ffb" class="cell" data-execution_count="37">
+<div id="cdcd6adc" class="cell" data-execution_count="37">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>abandoned_words <span class="op">=</span> {</span>
@@ -1730,7 +1730,7 @@ N12964[act] --7--&gt; N12965[pursuant]
 </div>
 </div>
 <p><strong>Sentence start with "system"</strong></p>
-<div id="12db2ba2" class="cell" data-execution_count="38">
+<div id="ed7a016f" class="cell" data-execution_count="38">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>display(Markdown((start_node[<span class="st">"system"</span>].<span class="bu">print</span>(min_freq<span class="op">=</span><span class="dv">3</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1775,7 +1775,7 @@ N10895[within] --3--&gt; N10896[meaning]
 </div>
 </div>
 <p><strong>Sentence start with "provider"</strong></p>
-<div id="42cd461c" class="cell" data-execution_count="39">
+<div id="617bc41f" class="cell" data-execution_count="39">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>display(Markdown((start_node[<span class="st">"provider"</span>].<span class="bu">print</span>(min_freq<span class="op">=</span><span class="dv">3</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1834,7 +1834,7 @@ N10481[service] --3--&gt; N10482[legislation]
 </div>
 </div>
 <p><strong>Sentence start with "documentation"</strong></p>
-<div id="d6a3aabc" class="cell" data-execution_count="40">
+<div id="4609df53" class="cell" data-execution_count="40">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>display(Markdown((start_node[<span class="st">"documentation"</span>].<span class="bu">print</span>(min_freq<span class="op">=</span><span class="dv">2</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1879,7 +1879,7 @@ N10560[body] --2--&gt; N10561[applicable]
 </div>
 </div>
 <p><strong>Sentence start with "adopting"</strong></p>
-<div id="33c35b5f" class="cell" data-execution_count="41">
+<div id="33457e58" class="cell" data-execution_count="41">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>display(Markdown((start_node[<span class="st">"adopting"</span>].<span class="bu">print</span>(min_freq<span class="op">=</span><span class="dv">2</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2039,7 +2039,7 @@ E --&gt; A
 </div>
 </div>
 </div>
-<div id="14297b26" class="cell" data-execution_count="42">
+<div id="5d368404" class="cell" data-execution_count="42">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> Classifier(</span>
@@ -2050,14 +2050,14 @@ E --&gt; A
 </details>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"eec544e313d544d693594f360fd0aebc","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"c5a4acc373794d38a1bff066d31db640","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="42">
 <pre><code>0</code></pre>
 </div>
 </div>
-<div id="e5773a82" class="cell" data-execution_count="43">
+<div id="d40343cc" class="cell" data-execution_count="43">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>classifier.classes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2066,7 +2066,7 @@ E --&gt; A
 <pre><code>['user info', 'provider info', 'warning', 'title', 'definition', 'exemption']</code></pre>
 </div>
 </div>
-<div id="9c846bb6" class="cell" data-execution_count="44">
+<div id="26280a6d" class="cell" data-execution_count="44">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="bu">zip</span>(</span>
@@ -2092,7 +2092,7 @@ E --&gt; A
 </div>
 </div>
 </div>
-<div id="c74e090c" class="cell" data-execution_count="45">
+<div id="ff81b110" class="cell" data-execution_count="45">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>class_density <span class="op">=</span> pd.DataFrame(</span>
@@ -2136,7 +2136,7 @@ Pennington, Jeffrey, Richard Socher, and Christopher Manning. 2014. <span>“<sp
 
 </main> <!-- /main -->
 <script type="application/vnd.jupyter.widget-state+json">
-{"state":{"093ae57fa7584b4384cdcb792a0e50b8":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_ac912ea3e2344f15a4c3959ecf921a5b","placeholder":"​","style":"IPY_MODEL_e94453c64ec24b10841ae12638d151af","tabbable":null,"tooltip":null,"value":" 558/558 [00:00&lt;00:00, 1925.44it/s]"}},"56643441057a46b3bc11794803be908c":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"9b5888b0b4b34cd481ee66d234b25814":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"ac912ea3e2344f15a4c3959ecf921a5b":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"bb3378c3de644c79a796ac95732d6965":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"c4d055212f574f33b97dfad2dba5e6dd":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"d8012221b9a244bebd8f941e644a4ce9":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_56643441057a46b3bc11794803be908c","max":558,"min":0,"orientation":"horizontal","style":"IPY_MODEL_bb3378c3de644c79a796ac95732d6965","tabbable":null,"tooltip":null,"value":558}},"e94453c64ec24b10841ae12638d151af":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"eec544e313d544d693594f360fd0aebc":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_f5a4c1946f734581ac1cf009196ed6dd","IPY_MODEL_d8012221b9a244bebd8f941e644a4ce9","IPY_MODEL_093ae57fa7584b4384cdcb792a0e50b8"],"layout":"IPY_MODEL_9b5888b0b4b34cd481ee66d234b25814","tabbable":null,"tooltip":null}},"f516fd5055564661864a7851e4b17098":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"f5a4c1946f734581ac1cf009196ed6dd":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_f516fd5055564661864a7851e4b17098","placeholder":"​","style":"IPY_MODEL_c4d055212f574f33b97dfad2dba5e6dd","tabbable":null,"tooltip":null,"value":"100%"}}},"version_major":2,"version_minor":0}
+{"state":{"097fcd0f88f44e47909f67afe6414949":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"586c72a7b4cb4bf49b3ff3709cbcd2c8":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_d6a1f73cb8ea4ae9a23bf59fca647e8d","max":558,"min":0,"orientation":"horizontal","style":"IPY_MODEL_cf44e675f2e044aa829fa2e0fecc3ef7","tabbable":null,"tooltip":null,"value":558}},"6c3dcee2995348689577b2b0548a17a9":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_097fcd0f88f44e47909f67afe6414949","placeholder":"​","style":"IPY_MODEL_85a3998328bf40319547377d4c8cb4af","tabbable":null,"tooltip":null,"value":" 558/558 [00:00&lt;00:00, 1494.81it/s]"}},"85a3998328bf40319547377d4c8cb4af":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"a4adeb4d39674967bc96d07a0f66da1d":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_bbd0ea4025ca48c58ae90f40dc8e093e","placeholder":"​","style":"IPY_MODEL_b22adf3141c048faa7a111aaf8322438","tabbable":null,"tooltip":null,"value":"100%"}},"af4d1c31ecb84f1b8a2463084e7b0937":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"b22adf3141c048faa7a111aaf8322438":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"bbd0ea4025ca48c58ae90f40dc8e093e":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"c5a4acc373794d38a1bff066d31db640":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_a4adeb4d39674967bc96d07a0f66da1d","IPY_MODEL_586c72a7b4cb4bf49b3ff3709cbcd2c8","IPY_MODEL_6c3dcee2995348689577b2b0548a17a9"],"layout":"IPY_MODEL_af4d1c31ecb84f1b8a2463084e7b0937","tabbable":null,"tooltip":null}},"cf44e675f2e044aa829fa2e0fecc3ef7":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"d6a1f73cb8ea4ae9a23bf59fca647e8d":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}}},"version_major":2,"version_minor":0}
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
